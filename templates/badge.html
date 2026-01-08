@@ -1,0 +1,43 @@
+<!--
+  Componente: Badge
+  Propósito: Mostrar estados/indicadores de forma compacta
+  
+  Props esperadas:
+  - variant: "bullish" | "bearish" | "neutral" | "warning"
+  - text: String contenido del badge
+  
+  Visual Language:
+  - Text: xs (12px) - pequeño y compacto
+  - Padding: px-3 py-1 (12px horizontal, 4px vertical)
+  - Border: 1px con color del variant (opacity 30%)
+  - Radius: rounded (4px) - pequeño y sutil
+  - Background: variant color con opacity 10%
+-->
+
+<!-- Variant: Bullish (verde) -->
+<span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-bullish/10 text-bullish border border-bullish/30">
+  RSI: 72 - Sobrecompra
+</span>
+
+<!-- Variant: Bearish (rojo) -->
+<span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-bearish/10 text-bearish border border-bearish/30">
+  Tendencia Bajista
+</span>
+
+<!-- Variant: Neutral (azul) -->
+<span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-neutral/10 text-neutral border border-neutral/30">
+  Sin datos
+</span>
+
+<!-- Variant: Warning (amarillo) -->
+<span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-warning/10 text-warning border border-warning/30">
+  Próximo a resistencia
+</span>
+
+<!--
+  Notas de implementación:
+  - inline-flex mantiene el badge inline con el texto
+  - items-center centra verticalmente el contenido
+  - /10 y /30 son opacity utilities de Tailwind (10% y 30%)
+  - font-medium (500) da énfasis sutil sin ser bold
+-->
