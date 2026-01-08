@@ -16,13 +16,6 @@ Mi design system reutilizable con paletas intercambiables, tipografía configura
 4. **Espaciado consistente** - Múltiplos de 8px. Sistema predecible y armonioso.
 5. **Dark-first** - Optimizado para uso prolongado, menos fatiga visual.
 
-### Lo que NO es este sistema
-
-- ❌ No es un framework complejo con 100 variantes por componente
-- ❌ No intenta cubrir todos los casos de uso posibles
-- ❌ No es "configurable hasta el absurdo"
-- ❌ No sigue trends de diseño (evita modas pasajeras)
-
 ### Lo que SÍ es este sistema
 
 - ✅ Opinado: decisiones de diseño ya tomadas para vos
@@ -33,308 +26,297 @@ Mi design system reutilizable con paletas intercambiables, tipografía configura
 
 ---
 
-## 📦 Estructura del Proyecto
+## 🧩 Componentes Disponibles
 
-```
-hubermann-ui/
-├── design-tokens/           # Lenguaje visual base (NO cambiar frecuentemente)
-│   └── visual-language.js   # Borders, typography, spacing, shadows
-│
-├── themes/                  # Paletas de colores intercambiables
-│   ├── financial-dark.js    # Default - dashboard financiero
-│   ├── dark-green.js        # Alternativa verde (TODO)
-│   └── minimal-light.js     # Claro y minimalista (TODO)
-│
-├── templates/               # Referencias HTML puras (multi-framework)
-│   ├── accordion.html
-│   ├── badge.html
-│   ├── button.html
-│   └── card.html
-│
-├── yew/                     # Componentes Yew (Rust)
-│   ├── Cargo.toml
-│   └── src/
-│       ├── lib.rs
-│       ├── accordion.rs
-│       └── badge.rs
-│
-├── leptos/                  # Componentes Leptos (Rust) 
-│   ├── Cargo.toml
-│   └── src/
-│       ├── lib.rs
-│       └── accordion.rs
-│
-├── docs/                    # Documentación visual
-│   └── index.html           # Storybook casero (TODO)
-│
-└── tailwind.config.base.js  # Config reutilizable
-```
+### Básicos (v0.1.0)
+
+- [x] **Badge** - Indicadores de estado compactos (bullish/bearish/neutral/warning)
+- [x] **Accordion** - Secciones colapsables con título, subtitle y badges opcionales
+- [x] **Button** - Botones interactivos (primary/secondary/ghost/danger) en 3 tamaños
+- [x] **Card** - Container base con padding flexible y estados elevated/hoverable
+- [x] **Input** - Campos de entrada con label, placeholder, error states
+- [x] **Select** - Dropdown selector con mismo styling que Input
+
+### Próximos (cuando se necesiten)
+
+- [ ] **Table** - Data tables con sorting/filtering
+- [ ] **Modal** - Overlays y dialogs
+- [ ] **Toast** - Notificaciones temporales
+- [ ] **Tabs** - Navegación entre secciones
+- [ ] **Checkbox/Radio** - Form controls adicionales
 
 ---
 
-## 🚀 Uso en Proyectos
+## 🚀 Uso Rápido
 
-### 1. Instalar el sistema
-
-```toml
-# Cargo.toml (Yew)
-[dependencies]
-hubermann-ui = { git = "https://github.com/tuusuario/hubermann-ui", branch = "main" }
-```
+### Instalar
 
 ```toml
-# Cargo.toml (Leptos)
+# Cargo.toml
 [dependencies]
-hubermann-ui-leptos = { git = "https://github.com/tuusuario/hubermann-ui", branch = "main" }
+hubermann-ui = { git = "https://github.com/tuusuario/hubermann-ui" }
 ```
 
-### 2. Configurar Tailwind
+### Usar
 
-```js
-// tailwind.config.js (en tu proyecto)
-const baseConfig = require('hubermann-ui/tailwind.config.base');
-module.exports = baseConfig;
-```
-
-### 3. Usar componentes
-
-**Yew:**
 ```rust
 use hubermann_ui::*;
 
-#[function_component(MyComponent)]
-fn my_component() -> Html {
-    html! {
-        <Accordion title="Indicadores Técnicos">
-            <Badge variant={BadgeVariant::Bullish} text="RSI: 72" />
+html! {
+    <Card>
+        <Accordion 
+            title="Indicadores Técnicos"
+            subtitle="RSI, MACD, y otros osciladores"
+            badges={html! {
+                <Badge variant={BadgeVariant::Bearish} text="RSI: 72" />
+            }}
+        >
+            <p>{"Detalles del análisis..."}</p>
         </Accordion>
-    }
+        
+        <Button 
+            variant={ButtonVariant::Primary}
+            onclick={Callback::from(|_| {
+                // Handle click
+            })}
+        >
+            {"Analizar"}
+        </Button>
+    </Card>
 }
 ```
 
-**Leptos:**
+---
+
+## 📖 Componentes en Detalle
+
+### Badge
+
 ```rust
-use hubermann_ui_leptos::*;
+<Badge 
+    variant={BadgeVariant::Bullish} // Bullish/Bearish/Neutral/Warning
+    text="RSI: 72 - Sobrecompra" 
+/>
+```
 
-#[component]
-pub fn MyComponent() -> impl IntoView {
-    view! {
-        <Accordion title="Indicadores Técnicos">
-            <Badge variant=BadgeVariant::Bullish text="RSI: 72" />
-        </Accordion>
-    }
+### Accordion
+
+```rust
+<Accordion 
+    title="Título"
+    subtitle="Descripción opcional"
+    default_open={false}
+    badges={html! { /* opcional */ }}
+>
+    {/* Contenido */}
+</Accordion>
+```
+
+### Button
+
+```rust
+<Button 
+    variant={ButtonVariant::Primary} // Primary/Secondary/Ghost/Danger
+    size={ButtonSize::Medium}         // Small/Medium/Large
+    disabled={false}
+    onclick={callback}
+>
+    {"Texto"}
+</Button>
+```
+
+### Card
+
+```rust
+<Card 
+    padding={CardPadding::Medium}  // None/Small/Medium/Large
+    elevated={false}               // Destacar sobre otros cards
+    hoverable={false}              // Efecto hover
+    onclick={Some(callback)}       // Opcional
+>
+    {/* Contenido */}
+</Card>
+```
+
+### Input
+
+```rust
+let value = use_state(|| String::new());
+let oninput = {
+    let value = value.clone();
+    Callback::from(move |v: String| value.set(v))
+};
+
+html! {
+    <Input
+        input_type="email"
+        value={(*value).clone()}
+        label="Email"
+        placeholder="tu@email.com"
+        error={None}  // Option<String>
+        disabled={false}
+        oninput={oninput}
+    />
+}
+```
+
+### Select
+
+```rust
+let options = vec![
+    SelectOption::new("1h", "1 Hora"),
+    SelectOption::new("4h", "4 Horas"),
+    SelectOption::new("1d", "Diario"),
+];
+
+html! {
+    <Select
+        options={options}
+        value={selected_value}
+        label="Temporalidad"
+        placeholder="Seleccionar..."
+        error={None}
+        disabled={false}
+        onchange={callback}
+    />
 }
 ```
 
 ---
 
-## 🎨 Cambiar Theme
+## 🎨 Visual Language
 
-```js
-// tailwind.config.base.js - línea 35
-const theme = require('./themes/dark-green'); // ← Cambiar acá
+### Colores (financial-dark)
 
-// Rebuild y todo tu proyecto cambia de colores
-```
+```css
+/* Backgrounds */
+--bg-primary:   #0A0E27  /* Más oscuro */
+--bg-secondary: #141B34  /* Cards */
+--bg-tertiary:  #1E2846  /* Hover */
+--bg-input:     #1a1a1a  /* Form inputs */
 
----
+/* Text */
+--text-primary:   #F3F4F6  /* Headers */
+--text-secondary: #9CA3AF  /* Body */
+--text-tertiary:  #6B7280  /* Subtle */
+--text-muted:     #4B5563  /* Disabled */
 
-## 🧩 Componentes Disponibles
+/* Semantic */
+--bullish: #10B981  /* Verde */
+--bearish: #EF4444  /* Rojo */
+--neutral: #3B82F6  /* Azul */
+--warning: #F59E0B  /* Amarillo */
 
-### Estado actual
-
-- [x] **Badge** - Indicadores de estado (bullish/bearish/neutral)
-- [x] **Accordion** - Collapsible sections
-- [ ] **Button** - Primary, secondary, ghost variants
-- [ ] **Card** - Container base
-- [ ] **Input** - Form inputs
-- [ ] **Table** - Data tables (próximo)
-- [ ] **Modal** - Overlays (próximo)
-
-### Roadmap
-
-Los componentes se agregan **solo cuando se necesitan en un proyecto real**.
-No hacemos trabajo especulativo.
-
----
-
-## 📖 Visual Language
-
-### Colores (financial-dark theme)
-
-```
-Backgrounds:
-  bg-primary:   #0A0E27  (más oscuro)
-  bg-secondary: #141B34  (cards)
-  bg-tertiary:  #1E2846  (hover)
-  
-Text:
-  text-primary:   #F3F4F6  (headers)
-  text-secondary: #9CA3AF  (body)
-  text-tertiary:  #6B7280  (subtle)
-
-Semantic:
-  bullish: #10B981 (verde)
-  bearish: #EF4444 (rojo)
-  neutral: #3B82F6 (azul)
+/* Accent */
+--accent: #3B82F6
 ```
 
 ### Tipografía
 
 ```
-Body:    14px (sm) - weight 300
-Headers: 16-20px (base-xl) - weight 600
-Labels:  12px (xs) - weight 400
-
-Font: Inter (sans) / JetBrains Mono (code)
+xs:   12px (labels muy pequeños)
+sm:   14px (body default) ⭐
+base: 16px (headers pequeños)
+lg:   18px (headers medianos)
+xl:   20px (headers importantes)
 ```
 
 ### Spacing
 
 ```
-xs: 8px   (0.5rem)
-sm: 12px  (0.75rem)
-md: 16px  (1rem) ⭐ default
-lg: 24px  (1.5rem)
-xl: 32px  (2rem)
-```
-
-### Borders
-
-```
-Width: 1px (siempre)
-Radius: 4-8px (redondeados sutiles)
-Opacity: 15% (líneas sutiles)
+2:  8px  (xs)
+3:  12px (sm)
+4:  16px (md) ⭐ default
+6:  24px (lg)
+8:  32px (xl)
 ```
 
 ---
 
-## 🛠️ Lineamientos para Contribuir
+## 📂 Estructura
 
-### Agregar un componente nuevo
-
-**SOLO agregar cuando:**
-- ✅ Lo necesitás en un proyecto real AHORA
-- ✅ No existe alternativa combinando componentes existentes
-- ✅ Va a ser reutilizable en 2+ proyectos
-
-**Proceso:**
-
-1. **Diseñar template HTML** (`templates/componentname.html`)
-   - HTML puro con Tailwind classes
-   - Comentarios explicando estructura
-   - Respeta visual-language.js
-
-2. **Adaptar a Yew** (`yew/src/componentname.rs`)
-   - Convertir HTML a `html!` macro
-   - Agregar lógica de estado si necesario
-   - Props type-safe
-
-3. **Adaptar a Leptos** (`leptos/src/componentname.rs`)
-   - Convertir a `view!` macro
-   - Usar signals para estado
-   - Copiar estructura de Yew (facilita)
-
-4. **Documentar** (actualizar README)
-   - Marcar componente como [x] disponible
-   - Agregar ejemplo de uso
-
-### Modificar visual language
-
-**CUIDADO:** Cambios acá afectan TODOS los proyectos.
-
-**Permitido:**
-- ✅ Agregar nuevos valores (ej: nuevo spacing)
-- ✅ Ajustar valores levemente (ej: 14px → 13px)
-
-**Prohibido:**
-- ❌ Cambiar filosofía base (ej: bordes gruesos)
-- ❌ Remover valores existentes (rompe proyectos)
-
-**Proceso:**
-1. Hacer cambio en `visual-language.js`
-2. Testearlo en 2-3 proyectos existentes
-3. Commitear si funciona bien en todos
-
-### Crear nuevo theme
-
-**Fácil y seguro**, no afecta proyectos existentes.
-
-1. Copiar `themes/financial-dark.js`
-2. Renombrar (ej: `themes/my-theme.js`)
-3. Cambiar solo `colors` object
-4. Mantener MISMA estructura
+```
+hubermann-ui/
+├── design-tokens/
+│   └── visual-language.js    # Lenguaje visual base
+├── themes/
+│   └── financial-dark.js     # Paleta de colores
+├── templates/                 # Referencias HTML
+│   ├── badge.html
+│   ├── accordion.html
+│   ├── button.html
+│   ├── card.html
+│   ├── input.html
+│   └── select.html
+└── yew/src/                   # Implementaciones Yew
+    ├── badge.rs
+    ├── accordion.rs
+    ├── button.rs
+    ├── card.rs
+    ├── input.rs
+    └── select.rs
+```
 
 ---
 
-## 🎯 Casos de Uso
+## 🛠️ Lineamientos
 
-### Proyecto nuevo (MVP financiero)
+### Agregar componente nuevo
 
-```bash
-# 1. Crear proyecto Yew
-cargo new my-mvp
-cd my-mvp
+1. Solo cuando lo **necesites en proyecto real**
+2. Crear `templates/componentname.html`
+3. Implementar `yew/src/componentname.rs`
+4. Actualizar `yew/src/lib.rs`
+5. Marcar [x] en README
 
-# 2. Agregar hubermann-ui
-# (editar Cargo.toml)
+Ver `CONTRIBUTING.md` para detalles completos.
 
-# 3. Copiar tailwind.config.base.js
-cp ../hubermann-ui/tailwind.config.base.js ./tailwind.config.js
-
-# 4. Usar componentes
-# (ver ejemplos arriba)
-
-# 5. Si necesitás componente nuevo → agregarlo a hubermann-ui
-# No lo hagas inline en tu proyecto
-```
-
-### Cambiar look & feel rápido
+### Cambiar theme
 
 ```js
-// Experimento: ¿Cómo se vería en verde?
-// tailwind.config.js
-const theme = require('hubermann-ui/themes/dark-green');
-
-// Rebuild
-trunk serve
-
-// No te gusta → revertir en 10 segundos
+// tailwind.config.base.js línea 35
+const theme = require('./themes/dark-green');
 ```
-
----
-
-## 🚨 Reglas de Oro
-
-1. **No hagas trabajo especulativo** - Solo componentes que necesitás HOY
-2. **No copies código entre proyectos** - Traelo de hubermann-ui o agregalo acá
-3. **Mantené consistencia visual** - Respetá el lenguaje visual
-4. **Documentá decisiones** - README y comentarios explican el "por qué"
-5. **Evolucioná orgánicamente** - El sistema crece con tus proyectos reales
-
----
-
-## 📚 Recursos
-
-- [Tailwind CSS Docs](https://tailwindcss.com/)
-- [Yew Docs](https://yew.rs/)
-- [Leptos Docs](https://leptos.dev/)
-- [Flowbite Components](https://flowbite.com/) (inspiración)
 
 ---
 
 ## 📝 Changelog
 
-### v0.1.0 (2025-01-08)
-- ✅ Setup inicial del sistema
+### v0.1.0 (2025-01-08) - Initial Release
+
+**Setup base:**
 - ✅ Design tokens (visual-language.js)
 - ✅ Theme financial-dark
-- ✅ Tailwind base config
+- ✅ Tailwind config reutilizable
 - ✅ Estructura de directorios
-- ⏳ Primeros componentes (en progreso)
+- ✅ Documentación (README, CONTRIBUTING, SETUP)
+
+**Componentes básicos:**
+- ✅ Badge (4 variants)
+- ✅ Accordion (con badges opcionales)
+- ✅ Button (4 variants, 3 sizes)
+- ✅ Card (4 padding options, elevated/hoverable)
+- ✅ Input (con label, error states)
+- ✅ Select (consistente con Input)
+
+**Templates HTML:**
+- ✅ 6 templates documentados
+- ✅ Multi-framework ready (Yew ahora, Leptos después)
+
+---
+
+## 🚨 Reglas de Oro
+
+1. **Need-driven, not speculation-driven** - Solo componentes que necesitás HOY
+2. **Consistencia visual** - Respetá el lenguaje visual siempre
+3. **Documentá decisiones** - Comentarios explican el "por qué"
+4. **No copies entre proyectos** - Centralizá en hubermann-ui
+5. **Evolución orgánica** - El sistema crece con tus proyectos reales
 
 ---
 
 **Mantenido por:** Gabriel Hubermann  
 **Licencia:** MIT (uso personal)  
 **Repo:** https://github.com/tuusuario/hubermann-ui
+
+Ver `CONTRIBUTING.md` para lineamientos detallados.

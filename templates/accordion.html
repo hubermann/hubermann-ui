@@ -1,0 +1,115 @@
+<!--
+  Componente: Accordion
+  Propósito: Sección colapsable/expandible para organizar información
+  
+  Props esperadas:
+  - title: String - Título visible siempre
+  - subtitle: String (opcional) - Descripción debajo del título
+  - badges: HTML (opcional) - Badges u otro contenido en el summary
+  - children: HTML - Contenido que se muestra/oculta
+  - default_open: bool - Si empieza abierto o cerrado
+  
+  Visual Language:
+  - Border: 1px sutil (border-default)
+  - Radius: rounded-md (6px)
+  - Padding: p-4 (16px) consistente
+  - Hover: bg-tertiary (sutil feedback)
+  - Text: title=base (16px), subtitle=sm (14px)
+  - Transition: smooth (200ms)
+  
+  Uso típico:
+  - Cajas de análisis técnico (Tendencia, Fibonacci, etc)
+  - Secciones de configuración
+  - FAQs
+-->
+
+<!-- Estado cerrado -->
+<div class="border border-border-default rounded-md bg-bg-secondary">
+  <!-- Summary (siempre visible) -->
+  <button class="w-full flex items-center justify-between p-4 hover:bg-bg-tertiary transition-colors">
+    <!-- Left: Título y subtítulo -->
+    <div class="flex-1 text-left">
+      <h3 class="text-base font-semibold text-text-primary">
+        Indicadores Técnicos
+      </h3>
+      <p class="text-sm text-text-tertiary mt-1">
+        RSI, MACD, y otros osciladores
+      </p>
+    </div>
+    
+    <!-- Center: Badges (opcional) -->
+    <div class="flex gap-2 mr-4">
+      <span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-bearish/10 text-bearish border border-bearish/30">
+        RSI: 72
+      </span>
+      <span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-bearish/10 text-bearish border border-bearish/30">
+        Sobrecompra
+      </span>
+    </div>
+    
+    <!-- Right: Chevron -->
+    <svg 
+      class="w-5 h-5 text-text-tertiary transition-transform"
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+</div>
+
+<!-- Estado abierto (chevron rotado, contenido visible) -->
+<div class="border border-border-default rounded-md bg-bg-secondary">
+  <button class="w-full flex items-center justify-between p-4 hover:bg-bg-tertiary transition-colors">
+    <div class="flex-1 text-left">
+      <h3 class="text-base font-semibold text-text-primary">
+        Indicadores Técnicos
+      </h3>
+      <p class="text-sm text-text-tertiary mt-1">
+        RSI, MACD, y otros osciladores
+      </p>
+    </div>
+    
+    <div class="flex gap-2 mr-4">
+      <span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-bearish/10 text-bearish border border-bearish/30">
+        RSI: 72
+      </span>
+      <span class="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-bearish/10 text-bearish border border-bearish/30">
+        Sobrecompra
+      </span>
+    </div>
+    
+    <!-- Chevron rotado 180deg cuando abierto -->
+    <svg 
+      class="w-5 h-5 text-text-tertiary transition-transform rotate-180"
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+  
+  <!-- Contenido expandible -->
+  <div class="p-4 border-t border-border-default">
+    <div class="space-y-3">
+      <p class="text-sm text-text-secondary">
+        <strong class="text-text-primary">RSI (72):</strong> El RSI indica sobrecompra. 
+        El activo podría estar sobreextendido al alza, considere posible corrección.
+      </p>
+      <p class="text-sm text-text-secondary">
+        <strong class="text-text-primary">MACD:</strong> Cruce bajista reciente detectado.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!--
+  Notas de implementación:
+  - Button ocupa width completo para hacer toda el área clickeable
+  - flex-1 en título permite que badges y chevron queden a la derecha
+  - transition-transform hace que el chevron rote suavemente
+  - border-t separa visualmente el contenido del header
+  - space-y-3 da spacing vertical consistente entre párrafos
+-->

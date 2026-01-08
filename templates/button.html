@@ -1,0 +1,76 @@
+<!--
+  Componente: Button
+  Propósito: Botón interactivo para acciones
+  
+  Props esperadas:
+  - variant: "primary" | "secondary" | "ghost" | "danger"
+  - size: "sm" | "md" | "lg"
+  - disabled: bool
+  - onclick: Callback
+  - children: HTML (texto/icono del botón)
+  
+  Visual Language:
+  - Radius: rounded-md (6px)
+  - Padding: proporcional al size
+  - Text: sm (14px) para md, ajustado por size
+  - Transition: 200ms para hover/active
+  - States: normal, hover, active, disabled
+-->
+
+<!-- Primary - Acción principal -->
+<button class="inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-accent-hover active:bg-accent-active transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+  Check
+</button>
+
+<!-- Secondary - Acción secundaria -->
+<button class="inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium bg-bg-tertiary text-text-primary border border-border-default hover:bg-bg-elevated transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+  Cancelar
+</button>
+
+<!-- Ghost - Acción sutil -->
+<button class="inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium text-text-primary hover:bg-bg-tertiary transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+  Ver más
+</button>
+
+<!-- Danger - Acción destructiva -->
+<button class="inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium bg-bearish text-white hover:bg-bearish-dark active:bg-bearish-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+  Eliminar
+</button>
+
+<!-- Small size -->
+<button class="inline-flex items-center justify-center px-3 py-1.5 rounded text-xs font-medium bg-accent text-white hover:bg-accent-hover transition-colors">
+  Small
+</button>
+
+<!-- Medium size (default) -->
+<button class="inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-accent-hover transition-colors">
+  Medium
+</button>
+
+<!-- Large size -->
+<button class="inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-semibold bg-accent text-white hover:bg-accent-hover transition-colors">
+  Large
+</button>
+
+<!-- Con icono (ejemplo con SVG) -->
+<button class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-accent-hover transition-colors">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+  </svg>
+  Agregar
+</button>
+
+<!-- Disabled state -->
+<button disabled class="inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium bg-accent text-white opacity-50 cursor-not-allowed">
+  Procesando...
+</button>
+
+<!--
+  Notas de implementación:
+  - inline-flex permite botones inline con texto
+  - items-center justify-center centran contenido
+  - gap-2 da spacing entre icono y texto
+  - transition-colors smooth en hover
+  - disabled:opacity-50 + cursor-not-allowed para estado disabled
+  - font-medium para texto (no bold, sutil)
+-->

@@ -1,0 +1,81 @@
+<!--
+  Componente: Card
+  Propósito: Container base para agrupar contenido relacionado
+  
+  Props esperadas:
+  - padding: "none" | "sm" | "md" | "lg" (default: md)
+  - children: HTML - Contenido del card
+  
+  Visual Language:
+  - Border: 1px sutil (border-default)
+  - Radius: rounded-md (6px)
+  - Background: bg-secondary (cards sobre bg-primary)
+  - Padding: flexible pero consistente
+  
+  Uso típico:
+  - Containers de información
+  - Secciones de dashboard
+  - Agrupar controles relacionados
+-->
+
+<!-- Card básico (padding medium) -->
+<div class="border border-border-default rounded-md bg-bg-secondary p-4">
+  <h3 class="text-base font-semibold text-text-primary mb-2">
+    Título del Card
+  </h3>
+  <p class="text-sm text-text-secondary">
+    Contenido del card. Puede ser texto, otros componentes, etc.
+  </p>
+</div>
+
+<!-- Sin padding (para contenido custom) -->
+<div class="border border-border-default rounded-md bg-bg-secondary">
+  <!-- Contenido ocupa todo el card -->
+  <div class="p-4 border-b border-border-default">
+    <h3 class="text-base font-semibold text-text-primary">Header</h3>
+  </div>
+  <div class="p-4">
+    <p class="text-sm text-text-secondary">Body</p>
+  </div>
+</div>
+
+<!-- Padding small -->
+<div class="border border-border-default rounded-md bg-bg-secondary p-3">
+  <span class="text-sm text-text-secondary">Compact card</span>
+</div>
+
+<!-- Padding large -->
+<div class="border border-border-default rounded-md bg-bg-secondary p-6">
+  <h2 class="text-lg font-semibold text-text-primary mb-4">
+    Large Card
+  </h2>
+  <p class="text-sm text-text-secondary">
+    Más espacio para respirar. Útil para contenido importante.
+  </p>
+</div>
+
+<!-- Card con hover (interactivo) -->
+<div class="border border-border-default rounded-md bg-bg-secondary p-4 hover:bg-bg-tertiary transition-colors cursor-pointer">
+  <h3 class="text-base font-semibold text-text-primary">
+    Card clickeable
+  </h3>
+</div>
+
+<!-- Card elevated (sobre otros cards) -->
+<div class="border border-border-emphasis rounded-md bg-bg-elevated p-4 shadow-md">
+  <h3 class="text-base font-semibold text-text-primary">
+    Card Elevated
+  </h3>
+  <p class="text-sm text-text-secondary">
+    Para destacar sobre otros elementos (modals, popovers)
+  </p>
+</div>
+
+<!--
+  Notas de implementación:
+  - p-4 (16px) es el padding default, consistente con Accordion
+  - rounded-md (6px) mantiene consistencia visual
+  - bg-secondary diferencia del fondo principal
+  - border-default para separación sutil
+  - transition-colors si es interactivo
+-->
