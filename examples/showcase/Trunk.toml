@@ -1,0 +1,30 @@
+# Hubermann UI - Showcase App (Trunk Config)
+#
+# Configuración de build para la aplicación de demostración
+# que muestra todos los componentes del design system.
+#
+# Uso:
+#   trunk serve           → Dev server en http://localhost:8080
+#   trunk build --release → Build optimizado en dist/
+
+[build]
+target = "index.html"
+release = false
+dist = "dist"
+
+[watch]
+# Ignorar estos directorios para evitar loops de recompilación
+ignore = ["target", "dist"]
+
+[serve]
+# Puerto para el dev server
+port = 8080
+# Abrir navegador automáticamente
+open = false
+# WebSocket para hot reload
+ws_protocol = "ws"
+
+[clean]
+# Limpiar dist/ y target/ al hacer trunk clean
+dist = "dist"
+cargo = true

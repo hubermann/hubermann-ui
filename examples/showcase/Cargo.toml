@@ -1,0 +1,19 @@
+[package]
+name = "hubermann-ui-showcase"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gabriel Hubermann"]
+description = "Showcase app para visualizar todos los componentes de Hubermann UI"
+
+[dependencies]
+# Hubermann UI - nuestra librería local
+hubermann-ui = { path = "../../yew" }
+
+# Yew para el showcase
+yew = { version = "0.21", features = ["csr"] }
+web-sys = "0.3"
+wasm-bindgen = "0.2"
+
+# Para logging en la consola del navegador
+log = "0.4"
+wasm-logger = "0.2"
