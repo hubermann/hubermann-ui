@@ -1,0 +1,77 @@
+<!--
+  Componente: Table
+  Propósito: Tabla de datos con sorting opcional y hover states
+
+  Props esperadas:
+  - headers: Vec<String> - Headers de columnas
+  - rows: Vec<Vec<String>> - Filas de datos
+  - sortable: bool - Si permite sorting (opcional)
+  - hoverable: bool - Si tiene hover effect
+
+  Respeta visual language:
+  - Borders: 1px sutiles (border-default)
+  - Radius: rounded-md en container
+  - Text: sm (14px) para celdas
+  - Spacing: p-3 en celdas (12px)
+  - Header: font-semibold, bg-bg-tertiary
+-->
+
+<div class="w-full border border-border-default rounded-md overflow-hidden bg-bg-secondary">
+  <!-- Table wrapper con overflow para scroll horizontal si es necesario -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <!-- Header -->
+      <thead class="bg-bg-tertiary border-b border-border-default">
+        <tr>
+          <th class="px-3 py-3 text-left font-semibold text-text-primary">Symbol</th>
+          <th class="px-3 py-3 text-left font-semibold text-text-primary">Price</th>
+          <th class="px-3 py-3 text-left font-semibold text-text-primary">Change</th>
+          <th class="px-3 py-3 text-left font-semibold text-text-primary">Volume</th>
+          <th class="px-3 py-3 text-right font-semibold text-text-primary">Actions</th>
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody>
+        <!-- Row normal -->
+        <tr class="border-b border-border-subtle hover:bg-bg-tertiary transition-colors">
+          <td class="px-3 py-3 text-text-primary font-medium">AAPL</td>
+          <td class="px-3 py-3 text-text-secondary">$182.45</td>
+          <td class="px-3 py-3">
+            <span class="text-bullish">+2.3%</span>
+          </td>
+          <td class="px-3 py-3 text-text-secondary">45.2M</td>
+          <td class="px-3 py-3 text-right">
+            <button class="text-accent hover:text-accent-hover text-xs">View</button>
+          </td>
+        </tr>
+
+        <!-- Row con cambio negativo -->
+        <tr class="border-b border-border-subtle hover:bg-bg-tertiary transition-colors">
+          <td class="px-3 py-3 text-text-primary font-medium">TSLA</td>
+          <td class="px-3 py-3 text-text-secondary">$238.72</td>
+          <td class="px-3 py-3">
+            <span class="text-bearish">-1.2%</span>
+          </td>
+          <td class="px-3 py-3 text-text-secondary">89.1M</td>
+          <td class="px-3 py-3 text-right">
+            <button class="text-accent hover:text-accent-hover text-xs">View</button>
+          </td>
+        </tr>
+
+        <!-- Row neutral -->
+        <tr class="hover:bg-bg-tertiary transition-colors">
+          <td class="px-3 py-3 text-text-primary font-medium">NVDA</td>
+          <td class="px-3 py-3 text-text-secondary">$495.22</td>
+          <td class="px-3 py-3">
+            <span class="text-neutral">+0.1%</span>
+          </td>
+          <td class="px-3 py-3 text-text-secondary">52.3M</td>
+          <td class="px-3 py-3 text-right">
+            <button class="text-accent hover:text-accent-hover text-xs">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

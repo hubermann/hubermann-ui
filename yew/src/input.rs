@@ -85,14 +85,14 @@ pub fn input(props: &InputProps) -> Html {
     
     html! {
         <div class="w-full">
-            {/* Label opcional */}
+            // Label opcional
             if let Some(label) = &props.label {
                 <label class={classes!("block", "text-sm", "font-medium", "mb-1.5", label_class)}>
                     {label}
                 </label>
             }
-            
-            {/* Input */}
+
+            // Input
             <input
                 type={props.input_type.clone()}
                 value={props.value.clone()}
@@ -118,8 +118,8 @@ pub fn input(props: &InputProps) -> Html {
                     focus_class
                 )}
             />
-            
-            {/* Mensaje de error */}
+
+            // Mensaje de error
             if let Some(error) = &props.error {
                 <p class="mt-1.5 text-xs text-bearish">
                     {error}

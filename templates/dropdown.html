@@ -1,0 +1,227 @@
+<!--
+  Componente: Dropdown
+  Propósito: Menú desplegable con contenido rico (iconos, badges, etc)
+
+  Props esperadas:
+  - trigger: Html - Contenido del botón trigger
+  - items: Vec<DropdownItem> - Items del dropdown
+  - position: DropdownPosition - Left/Right (alineación)
+  - open: bool - Si está abierto (controlado por estado)
+
+  Diferencias con Select:
+  - Select: formulario nativo <select>, solo texto
+  - Dropdown: menú custom con contenido rico (iconos, badges, etc)
+
+  Respeta visual language:
+  - Border sutil
+  - Shadow para elevación
+  - Hover states claros
+  - Rounded corners consistentes
+
+  Interacción:
+  - Click en trigger abre/cierra
+  - Click fuera cierra
+  - ESC cierra
+  - Items pueden tener onClick handlers
+-->
+
+<!-- Dropdown básico (left aligned) -->
+<div class="relative inline-block">
+  <!-- Trigger button -->
+  <button
+    type="button"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-bg-secondary text-text-primary border border-border-default hover:bg-bg-tertiary transition-colors"
+  >
+    <span>Select Country</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+    </svg>
+  </button>
+
+  <!-- Dropdown menu (hidden por default) -->
+  <div class="absolute left-0 mt-2 w-56 bg-bg-elevated border border-border-emphasis rounded-md shadow-xl z-50">
+    <ul class="py-2">
+      <!-- Item con icono -->
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none">
+            <!-- USA flag icon -->
+            <circle cx="8" cy="8" r="7.5" fill="#1A47B8"/>
+          </svg>
+          <span>United States</span>
+        </button>
+      </li>
+
+      <!-- Item con badge -->
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none">
+              <!-- France flag icon -->
+              <circle cx="8" cy="8" r="7.5" fill="#D80027"/>
+            </svg>
+            <span>France</span>
+          </div>
+          <span class="px-2 py-0.5 rounded text-xs font-medium bg-bullish/10 text-bullish border border-bullish/30">
+            Popular
+          </span>
+        </button>
+      </li>
+
+      <!-- Divider -->
+      <li>
+        <div class="my-2 border-t border-border-subtle"></div>
+      </li>
+
+      <!-- Item simple -->
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+          Canada
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Dropdown right aligned -->
+<div class="relative inline-block">
+  <button
+    type="button"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-accent-hover transition-colors"
+  >
+    <span>Actions</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+    </svg>
+  </button>
+
+  <!-- Dropdown alineado a la derecha -->
+  <div class="absolute right-0 mt-2 w-48 bg-bg-elevated border border-border-emphasis rounded-md shadow-xl z-50">
+    <ul class="py-2">
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+          </svg>
+          Edit
+        </button>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          Duplicate
+        </button>
+      </li>
+      <li>
+        <div class="my-2 border-t border-border-subtle"></div>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-bearish hover:bg-bearish/10 transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Dropdown con grupos -->
+<div class="relative inline-block">
+  <button
+    type="button"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-bg-secondary text-text-primary border border-border-default hover:bg-bg-tertiary transition-colors"
+  >
+    <span>Analysis Tools</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+    </svg>
+  </button>
+
+  <div class="absolute left-0 mt-2 w-64 bg-bg-elevated border border-border-emphasis rounded-md shadow-xl z-50">
+    <div class="py-2">
+      <!-- Grupo 1 -->
+      <div class="px-4 py-2">
+        <p class="text-xs font-semibold text-text-tertiary uppercase tracking-wide">Technical</p>
+      </div>
+      <ul>
+        <li>
+          <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+            RSI Analysis
+          </button>
+        </li>
+        <li>
+          <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+            MACD Crossover
+          </button>
+        </li>
+      </ul>
+
+      <div class="my-2 border-t border-border-subtle"></div>
+
+      <!-- Grupo 2 -->
+      <div class="px-4 py-2">
+        <p class="text-xs font-semibold text-text-tertiary uppercase tracking-wide">Fundamental</p>
+      </div>
+      <ul>
+        <li>
+          <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+            P/E Ratio
+          </button>
+        </li>
+        <li>
+          <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+            Earnings Report
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Dropdown con búsqueda -->
+<div class="relative inline-block">
+  <button
+    type="button"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-bg-secondary text-text-primary border border-border-default hover:bg-bg-tertiary transition-colors"
+  >
+    <span>Select Symbol</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+    </svg>
+  </button>
+
+  <div class="absolute left-0 mt-2 w-72 bg-bg-elevated border border-border-emphasis rounded-md shadow-xl z-50">
+    <!-- Search input -->
+    <div class="p-3 border-b border-border-subtle">
+      <input
+        type="text"
+        placeholder="Search symbols..."
+        class="w-full px-3 py-2 bg-bg-input border border-border-default rounded-md text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+      />
+    </div>
+
+    <!-- Results -->
+    <ul class="py-2 max-h-64 overflow-y-auto">
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">AAPL</span>
+            <span class="text-xs text-text-tertiary">Apple Inc.</span>
+          </div>
+        </button>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-bg-tertiary transition-colors">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">TSLA</span>
+            <span class="text-xs text-text-tertiary">Tesla, Inc.</span>
+          </div>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

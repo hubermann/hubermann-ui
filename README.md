@@ -37,13 +37,25 @@ Mi design system reutilizable con paletas intercambiables, tipografía configura
 - [x] **Input** - Campos de entrada con label, placeholder, error states
 - [x] **Select** - Dropdown selector con mismo styling que Input
 
+### Dashboard Essentials (v0.3.0)
+
+- [x] **Table** - Tablas de datos con hover states y celdas tipadas
+- [x] **StatsCard** - Métricas clave con cambio porcentual y colores semánticos
+- [x] **Tabs** - Navegación entre secciones (ej: timeframes 1H/4H/1D)
+- [x] **Toast** - Notificaciones temporales con auto-dismiss
+
+### UX Essentials (v0.4.0)
+
+- [x] **Modal** - Overlays y dialogs con backdrop, ESC key, click-outside
+- [x] **Loading** - Spinner, progress bar, y skeleton loaders
+- [x] **Tooltip** - Educación contextual con 4 posiciones
+- [x] **Dropdown** - Menú desplegable con contenido rico (iconos, grupos, badges)
+
 ### Próximos (cuando se necesiten)
 
-- [ ] **Table** - Data tables con sorting/filtering
-- [ ] **Modal** - Overlays y dialogs
-- [ ] **Toast** - Notificaciones temporales
-- [ ] **Tabs** - Navegación entre secciones
 - [ ] **Checkbox/Radio** - Form controls adicionales
+- [ ] **Progress Bar Determinada** - Indicador de progreso con porcentaje
+- [ ] **Date Picker** - Selector de fechas
 
 ---
 
@@ -51,20 +63,44 @@ Mi design system reutilizable con paletas intercambiables, tipografía configura
 
 ### Instalar
 
+**Yew:**
 ```toml
 # Cargo.toml
 [dependencies]
 hubermann-ui = { git = "https://github.com/tuusuario/hubermann-ui" }
+yew = { version = "0.21", features = ["csr"] }
 ```
 
-### Usar
+**Leptos:**
+```toml
+# Cargo.toml
+[dependencies]
+hubermann-ui-leptos = { git = "https://github.com/tuusuario/hubermann-ui", package = "hubermann-ui-leptos" }
+leptos = { version = "0.6", features = ["csr"] }
+```
+
+### Ver Showcase Interactivo
+
+```bash
+# Instalar Trunk
+cargo install trunk
+
+# Clonar y correr showcase
+git clone https://github.com/tuusuario/hubermann-ui
+cd hubermann-ui/examples/showcase
+trunk serve
+
+# Abrir http://localhost:8080
+```
+
+### Usar (Yew)
 
 ```rust
 use hubermann_ui::*;
 
 html! {
     <Card>
-        <Accordion 
+        <Accordion
             title="Indicadores Técnicos"
             subtitle="RSI, MACD, y otros osciladores"
             badges={html! {
@@ -73,14 +109,40 @@ html! {
         >
             <p>{"Detalles del análisis..."}</p>
         </Accordion>
-        
-        <Button 
+
+        <Button
             variant={ButtonVariant::Primary}
             onclick={Callback::from(|_| {
                 // Handle click
             })}
         >
             {"Analizar"}
+        </Button>
+    </Card>
+}
+```
+
+### Usar (Leptos)
+
+```rust
+use hubermann_ui_leptos::*;
+
+view! {
+    <Card>
+        <Accordion
+            title="Indicadores Técnicos"
+            subtitle="RSI, MACD, y otros osciladores"
+            badges=view! {
+                <Badge variant=BadgeVariant::Bearish text="RSI: 72" />
+            }
+        >
+            <p>"Detalles del análisis..."</p>
+        </Accordion>
+
+        <Button
+            variant=ButtonVariant::Primary
+        >
+            "Analizar"
         </Button>
     </Card>
 }
@@ -182,6 +244,93 @@ html! {
 }
 ```
 
+### Modal
+
+```rust
+let (show, set_show) = use_state(|| false);
+
+html! {
+    <>
+        <Button onclick={Callback::from(move |_| set_show.set(true))}>
+            {"Open Modal"}
+        </Button>
+
+        <Modal
+            show={*show}
+            title="Confirm Order"
+            size={ModalSize::Medium}  // Small/Medium/Large
+            onclose={Callback::from(move |_| set_show.set(false))}
+            footer={None}  // Option<Html> para footer custom
+        >
+            <p>{"Are you sure?"}</p>
+        </Modal>
+    </>
+}
+```
+
+### Loading
+
+```rust
+// Spinner
+<Loading
+    variant={LoadingVariant::Spinner}
+    size={LoadingSize::Medium}  // Small/Medium/Large
+    text={Some("Loading...".to_string())}
+    fullscreen={false}
+/>
+
+// Progress Bar
+<Loading
+    variant={LoadingVariant::ProgressBar}
+    text={Some("Fetching data...".to_string())}
+/>
+
+// Skeleton Loaders
+<Loading
+    variant={LoadingVariant::Skeleton}
+    size={LoadingSize::Small}  // Small=Card, Medium=Stats, Large=Table
+/>
+```
+
+### Tooltip
+
+```rust
+<Tooltip
+    content="Click for more information"
+    position={TooltipPosition::Top}  // Top/Bottom/Left/Right
+    rich={false}  // true para contenido multi-línea
+>
+    <button>{"?"}</button>
+</Tooltip>
+```
+
+### Dropdown
+
+```rust
+<Dropdown
+    trigger={html! {
+        <span>{"Select Country"}</span>
+    }}
+    position={DropdownPosition::Left}  // Left/Right
+>
+    <DropdownItem onclick={Callback::from(|_| { /* handler */ })}>
+        <span>{"United States"}</span>
+    </DropdownItem>
+
+    <DropdownDivider />
+
+    <DropdownGroup title="Europe">
+        <DropdownItem onclick={callback}>
+            <span>{"France"}</span>
+        </DropdownItem>
+    </DropdownGroup>
+
+    <DropdownItem onclick={callback} danger={true}>
+        <span>{"Delete"}</span>
+    </DropdownItem>
+</Dropdown>
+```
+
 ---
 
 ## 🎨 Visual Language
@@ -248,13 +397,31 @@ hubermann-ui/
 │   ├── card.html
 │   ├── input.html
 │   └── select.html
-└── yew/src/                   # Implementaciones Yew
-    ├── badge.rs
-    ├── accordion.rs
-    ├── button.rs
-    ├── card.rs
-    ├── input.rs
-    └── select.rs
+├── yew/                       # Implementación Yew
+│   ├── Cargo.toml
+│   └── src/
+│       ├── lib.rs
+│       ├── badge.rs
+│       ├── accordion.rs
+│       ├── button.rs
+│       ├── card.rs
+│       ├── input.rs
+│       └── select.rs
+├── leptos/                    # Implementación Leptos
+│   ├── Cargo.toml
+│   └── src/
+│       ├── lib.rs
+│       ├── badge.rs
+│       ├── accordion.rs
+│       ├── button.rs
+│       ├── card.rs
+│       ├── input.rs
+│       └── select.rs
+└── examples/
+    └── showcase/              # App de demostración
+        ├── Trunk.toml
+        ├── index.html
+        └── src/main.rs
 ```
 
 ---
@@ -282,6 +449,60 @@ const theme = require('./themes/dark-green');
 
 ## 📝 Changelog
 
+### v0.4.0 (2025-01-08) - UX Essentials
+
+**Nuevos componentes (críticos para UX fluida):**
+- ✅ Modal - Overlays con backdrop, ESC key, click-outside, 3 tamaños
+- ✅ Loading - Spinner (3 tamaños), progress bar, skeleton loaders
+- ✅ Tooltip - Educación contextual con 4 posiciones (top/bottom/left/right)
+- ✅ Dropdown - Menú desplegable con contenido rico (iconos, grupos, badges, danger items)
+
+**Implementaciones:**
+- ✅ 4 componentes nuevos en Yew
+- ✅ 4 componentes nuevos en Leptos
+- ✅ Templates HTML documentados
+- ✅ Total: 14 componentes en ambos frameworks
+- ✅ Showcase actualizado con todos los componentes
+
+**Detalles técnicos:**
+- Modal: ESC key listener con gloo::events, click-outside detection
+- Loading: Múltiples variantes (Spinner/ProgressBar/Skeleton)
+- Tooltip: CSS-only hover con positioning dinámico
+- Dropdown: Click-outside detection, ESC key, DropdownItem/DropdownDivider/DropdownGroup
+- web-sys features: HtmlElement, DomTokenList, KeyboardEvent
+
+### v0.3.0 (2025-01-08) - Dashboard Essentials
+
+**Nuevos componentes (críticos para dashboards):**
+- ✅ Table - Tablas de datos con celdas tipadas (Text/Primary/Secondary/Change)
+- ✅ StatsCard - Métricas con cambio porcentual (bullish/bearish/neutral)
+- ✅ Tabs - Navegación entre secciones/timeframes
+- ✅ Toast - Notificaciones temporales (success/error/warning/info)
+
+**Implementaciones:**
+- ✅ 4 componentes nuevos en Yew
+- ✅ 4 componentes nuevos en Leptos
+- ✅ Templates HTML documentados
+- ✅ Total: 10 componentes en ambos frameworks
+
+### v0.2.0 (2025-01-08) - Leptos Support + Showcase
+
+**Multi-framework support:**
+- ✅ Soporte completo para Leptos 0.6
+- ✅ Todos los componentes implementados en Yew y Leptos
+- ✅ APIs consistentes entre frameworks
+
+**Tooling:**
+- ✅ Trunk build setup
+- ✅ Showcase app interactiva (examples/showcase)
+- ✅ Hot reload para desarrollo
+- ✅ QUICKSTART.md con ejemplos completos
+
+**Componentes (ambos frameworks):**
+- ✅ Badge, Button, Card, Accordion, Input, Select
+- ✅ Documentación inline completa
+- ✅ Ejemplos funcionales en showcase
+
 ### v0.1.0 (2025-01-08) - Initial Release
 
 **Setup base:**
@@ -291,7 +512,7 @@ const theme = require('./themes/dark-green');
 - ✅ Estructura de directorios
 - ✅ Documentación (README, CONTRIBUTING, SETUP)
 
-**Componentes básicos:**
+**Componentes básicos (Yew):**
 - ✅ Badge (4 variants)
 - ✅ Accordion (con badges opcionales)
 - ✅ Button (4 variants, 3 sizes)
@@ -301,7 +522,7 @@ const theme = require('./themes/dark-green');
 
 **Templates HTML:**
 - ✅ 6 templates documentados
-- ✅ Multi-framework ready (Yew ahora, Leptos después)
+- ✅ Multi-framework ready
 
 ---
 

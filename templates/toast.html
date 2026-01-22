@@ -1,0 +1,166 @@
+<!--
+  Componente: Toast
+  Propósito: Notificaciones temporales para feedback de usuario
+
+  Props esperadas:
+  - message: String - Mensaje a mostrar
+  - variant: ToastVariant - Success/Error/Warning/Info
+  - duration: Option<u32> - Duración en ms (default 3000)
+  - onclose: Option<Callback> - Handler al cerrar
+
+  Respeta visual language:
+  - Borders: 1px sutiles
+  - Radius: rounded-md (6px)
+  - Text: sm (14px)
+  - Spacing: p-4
+  - Shadow: shadow-lg para elevación
+  - Animation: slide-in desde arriba o bottom
+
+  Posicionamiento:
+  - Fixed top-right (o configurable)
+  - z-index alto (50)
+  - Stack vertical si hay múltiples
+-->
+
+<!-- Toast Success (bullish) -->
+<div class="fixed top-4 right-4 z-50 max-w-sm animate-slide-in">
+  <div class="flex items-start gap-3 p-4 bg-bg-elevated border border-bullish/30 rounded-md shadow-lg">
+    <!-- Ícono -->
+    <div class="flex-shrink-0">
+      <svg class="w-5 h-5 text-bullish" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 pt-0.5">
+      <p class="text-sm font-medium text-text-primary mb-1">
+        Order executed successfully
+      </p>
+      <p class="text-xs text-text-secondary">
+        Bought 10 shares of AAPL at $182.45
+      </p>
+    </div>
+
+    <!-- Close button -->
+    <button class="flex-shrink-0 text-text-tertiary hover:text-text-primary transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Toast Error (bearish) -->
+<div class="fixed top-4 right-4 z-50 max-w-sm">
+  <div class="flex items-start gap-3 p-4 bg-bg-elevated border border-bearish/30 rounded-md shadow-lg">
+    <div class="flex-shrink-0">
+      <svg class="w-5 h-5 text-bearish" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+
+    <div class="flex-1 pt-0.5">
+      <p class="text-sm font-medium text-text-primary mb-1">
+        Order failed
+      </p>
+      <p class="text-xs text-text-secondary">
+        Insufficient funds. Available: $500
+      </p>
+    </div>
+
+    <button class="flex-shrink-0 text-text-tertiary hover:text-text-primary transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Toast Warning -->
+<div class="fixed top-4 right-4 z-50 max-w-sm">
+  <div class="flex items-start gap-3 p-4 bg-bg-elevated border border-warning/30 rounded-md shadow-lg">
+    <div class="flex-shrink-0">
+      <svg class="w-5 h-5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+
+    <div class="flex-1 pt-0.5">
+      <p class="text-sm font-medium text-text-primary mb-1">
+        High volatility detected
+      </p>
+      <p class="text-xs text-text-secondary">
+        Consider adjusting position size
+      </p>
+    </div>
+
+    <button class="flex-shrink-0 text-text-tertiary hover:text-text-primary transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Toast Info (neutral) -->
+<div class="fixed top-4 right-4 z-50 max-w-sm">
+  <div class="flex items-start gap-3 p-4 bg-bg-elevated border border-neutral/30 rounded-md shadow-lg">
+    <div class="flex-shrink-0">
+      <svg class="w-5 h-5 text-neutral" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+
+    <div class="flex-1 pt-0.5">
+      <p class="text-sm font-medium text-text-primary mb-1">
+        Market opens in 30 minutes
+      </p>
+      <p class="text-xs text-text-secondary">
+        Pre-market trading is active
+      </p>
+    </div>
+
+    <button class="flex-shrink-0 text-text-tertiary hover:text-text-primary transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Toast simple (sin subtítulo) -->
+<div class="fixed top-4 right-4 z-50 max-w-sm">
+  <div class="flex items-center gap-3 p-4 bg-bg-elevated border border-border-default rounded-md shadow-lg">
+    <div class="flex-shrink-0">
+      <svg class="w-5 h-5 text-bullish" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+
+    <div class="flex-1">
+      <p class="text-sm font-medium text-text-primary">
+        Settings saved
+      </p>
+    </div>
+
+    <button class="flex-shrink-0 text-text-tertiary hover:text-text-primary transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Stack de toasts (múltiples) -->
+<div class="fixed top-4 right-4 z-50 flex flex-col gap-3 max-w-sm">
+  <!-- Toast 1 -->
+  <div class="flex items-start gap-3 p-4 bg-bg-elevated border border-bullish/30 rounded-md shadow-lg">
+    <!-- ... contenido ... -->
+  </div>
+
+  <!-- Toast 2 -->
+  <div class="flex items-start gap-3 p-4 bg-bg-elevated border border-neutral/30 rounded-md shadow-lg">
+    <!-- ... contenido ... -->
+  </div>
+</div>

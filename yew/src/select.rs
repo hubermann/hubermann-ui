@@ -99,14 +99,14 @@ pub fn select(props: &SelectProps) -> Html {
     
     html! {
         <div class="w-full">
-            {/* Label opcional */}
+            // Label opcional
             if let Some(label) = &props.label {
                 <label class="block text-sm font-medium text-text-primary mb-1.5">
                     {label}
                 </label>
             }
-            
-            {/* Select con chevron */}
+
+            // Select con chevron
             <div class="relative">
                 <select
                     value={props.value.clone()}
@@ -132,14 +132,14 @@ pub fn select(props: &SelectProps) -> Html {
                         focus_class
                     )}
                 >
-                    {/* Placeholder opcional */}
+                    // Placeholder opcional
                     if let Some(placeholder) = &props.placeholder {
                         <option value="">
                             {placeholder}
                         </option>
                     }
-                    
-                    {/* Opciones */}
+
+                    // Opciones
                     {props.options.iter().map(|opt| {
                         html! {
                             <option value={opt.value.clone()}>
@@ -148,8 +148,8 @@ pub fn select(props: &SelectProps) -> Html {
                         }
                     }).collect::<Html>()}
                 </select>
-                
-                {/* Chevron icon */}
+
+                // Chevron icon
                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                     <svg 
                         class={classes!("h-4", "w-4", icon_color)}
@@ -166,8 +166,8 @@ pub fn select(props: &SelectProps) -> Html {
                     </svg>
                 </div>
             </div>
-            
-            {/* Mensaje de error */}
+
+            // Mensaje de error
             if let Some(error) = &props.error {
                 <p class="mt-1.5 text-xs text-bearish">
                     {error}

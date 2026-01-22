@@ -72,12 +72,12 @@ pub fn accordion(props: &AccordionProps) -> Html {
     
     html! {
         <div class="border border-border-default rounded-md bg-bg-secondary">
-            {/* Summary - siempre visible */}
+            // Summary - siempre visible
             <button 
                 onclick={toggle}
                 class="w-full flex items-center justify-between p-4 hover:bg-bg-tertiary transition-colors"
             >
-                {/* Left: Título y subtítulo */}
+                // Left: Título y subtítulo
                 <div class="flex-1 text-left">
                     <h3 class="text-base font-semibold text-text-primary">
                         {&props.title}
@@ -88,15 +88,15 @@ pub fn accordion(props: &AccordionProps) -> Html {
                         </p>
                     }
                 </div>
-                
-                {/* Center: Badges opcionales */}
+
+                // Center: Badges opcionales
                 if let Some(badges) = &props.badges {
                     <div class="flex gap-2 mr-4">
                         {badges.clone()}
                     </div>
                 }
-                
-                {/* Right: Chevron */}
+
+                // Right: Chevron
                 <svg 
                     class={chevron_class}
                     fill="none" 
@@ -111,8 +111,8 @@ pub fn accordion(props: &AccordionProps) -> Html {
                     />
                 </svg>
             </button>
-            
-            {/* Content - solo visible cuando open */}
+
+            // Content - solo visible cuando open
             if *open {
                 <div class="p-4 border-t border-border-default">
                     {props.children.clone()}

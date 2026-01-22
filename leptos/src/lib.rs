@@ -1,12 +1,12 @@
-// Hubermann UI - Componentes Yew
+// Hubermann UI - Componentes Leptos
 //
 // Este crate exporta todos los componentes del design system
-// para uso en proyectos Yew.
+// para uso en proyectos Leptos.
 
 mod badge;
-mod accordion;
 mod button;
 mod card;
+mod accordion;
 mod input;
 mod select;
 mod table;
@@ -19,9 +19,9 @@ mod tooltip;
 mod dropdown;
 
 pub use badge::*;
-pub use accordion::*;
 pub use button::*;
 pub use card::*;
+pub use accordion::*;
 pub use input::*;
 pub use select::*;
 pub use table::*;

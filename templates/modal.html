@@ -1,0 +1,138 @@
+<!--
+  Componente: Modal
+  Propósito: Overlay para interacciones complejas (confirmaciones, formularios)
+
+  Props esperadas:
+  - title: String - Título del modal
+  - children: Children - Contenido del modal
+  - show: bool - Si está visible
+  - size: ModalSize - Small/Medium/Large
+  - onclose: Callback - Handler al cerrar
+
+  Respeta visual language:
+  - Overlay oscuro (bg-black/50)
+  - Modal centrado con bg-bg-elevated
+  - Border sutil
+  - Radius: rounded-md (6px)
+  - Shadow: shadow-xl para elevación máxima
+  - z-index: 50 (alto)
+
+  Interacción:
+  - Click fuera del modal lo cierra
+  - ESC key lo cierra
+  - X button manual
+-->
+
+<!-- Overlay con backdrop -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <!-- Modal container - tamaño medium -->
+  <div class="bg-bg-elevated border border-border-emphasis rounded-md shadow-xl w-full max-w-md mx-4 max-h-[90vh] overflow-hidden">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-border-default">
+      <h2 class="text-lg font-semibold text-text-primary">
+        Confirm Action
+      </h2>
+      <!-- Close button -->
+      <button class="text-text-tertiary hover:text-text-primary transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body con scroll si es necesario -->
+    <div class="p-4 overflow-y-auto max-h-[60vh]">
+      <p class="text-sm text-text-secondary mb-4">
+        Are you sure you want to execute this order? This action cannot be undone.
+      </p>
+
+      <!-- Ejemplo: detalles del order -->
+      <div class="bg-bg-secondary border border-border-default rounded p-3 mb-4">
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-text-tertiary">Symbol:</span>
+          <span class="text-text-primary font-medium">AAPL</span>
+        </div>
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-text-tertiary">Quantity:</span>
+          <span class="text-text-primary font-medium">10 shares</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-text-tertiary">Estimated Cost:</span>
+          <span class="text-text-primary font-medium">$1,824.50</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer con acciones -->
+    <div class="flex items-center justify-end gap-3 p-4 border-t border-border-default">
+      <button class="px-4 py-2 rounded-md text-sm font-medium text-text-primary hover:bg-bg-tertiary transition-colors">
+        Cancel
+      </button>
+      <button class="px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-accent-hover transition-colors">
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal large (para formularios extensos) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div class="bg-bg-elevated border border-border-emphasis rounded-md shadow-xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden">
+    <div class="flex items-center justify-between p-4 border-b border-border-default">
+      <h2 class="text-lg font-semibold text-text-primary">
+        Advanced Order
+      </h2>
+      <button class="text-text-tertiary hover:text-text-primary transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="p-4 overflow-y-auto max-h-[60vh]">
+      <!-- Contenido extenso aquí -->
+      <p class="text-sm text-text-secondary">
+        Configure advanced order parameters...
+      </p>
+    </div>
+
+    <div class="flex items-center justify-end gap-3 p-4 border-t border-border-default">
+      <button class="px-4 py-2 rounded-md text-sm font-medium text-text-primary hover:bg-bg-tertiary transition-colors">
+        Cancel
+      </button>
+      <button class="px-4 py-2 rounded-md text-sm font-medium bg-accent text-white hover:bg-accent-hover transition-colors">
+        Place Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal small (para confirmaciones simples) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div class="bg-bg-elevated border border-border-emphasis rounded-md shadow-xl w-full max-w-sm mx-4">
+    <div class="p-4 text-center">
+      <!-- Icon warning -->
+      <div class="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-warning/10 mb-3">
+        <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+
+      <h3 class="text-base font-semibold text-text-primary mb-2">
+        Delete Position?
+      </h3>
+      <p class="text-sm text-text-secondary mb-4">
+        This will remove all data for this position.
+      </p>
+
+      <div class="flex gap-3">
+        <button class="flex-1 px-4 py-2 rounded-md text-sm font-medium text-text-primary border border-border-default hover:bg-bg-tertiary transition-colors">
+          Cancel
+        </button>
+        <button class="flex-1 px-4 py-2 rounded-md text-sm font-medium bg-bearish text-white hover:bg-bearish-dark transition-colors">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

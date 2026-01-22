@@ -1,0 +1,133 @@
+<!--
+  Componente: Loading
+  Propósito: Indicadores de carga para UX fluida
+
+  Variantes:
+  - Spinner: Animación circular
+  - Bar: Barra de progreso indeterminada
+  - Skeleton: Placeholder para contenido
+  - Inline: Pequeño para botones
+
+  Props esperadas:
+  - variant: LoadingVariant - Tipo de loading
+  - size: LoadingSize - Small/Medium/Large
+  - text: Option<String> - Texto opcional
+
+  Respeta visual language:
+  - Colors: accent para spinner/bar
+  - Animations: smooth, no jarring
+  - Spacing: consistente
+-->
+
+<!-- Spinner default (medium) -->
+<div class="flex flex-col items-center justify-center p-8">
+  <!-- Spinner SVG animado -->
+  <svg class="animate-spin h-8 w-8 text-accent mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  </svg>
+  <p class="text-sm text-text-secondary">Loading...</p>
+</div>
+
+<!-- Spinner small (para inline/botones) -->
+<div class="inline-flex items-center gap-2">
+  <svg class="animate-spin h-4 w-4 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  </svg>
+  <span class="text-sm text-text-secondary">Processing...</span>
+</div>
+
+<!-- Spinner large (fullscreen/overlay) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-bg-primary/80 backdrop-blur-sm">
+  <div class="flex flex-col items-center">
+    <svg class="animate-spin h-12 w-12 text-accent mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <p class="text-base text-text-primary font-medium">Loading market data...</p>
+    <p class="text-sm text-text-tertiary mt-1">This may take a few seconds</p>
+  </div>
+</div>
+
+<!-- Progress bar indeterminada -->
+<div class="w-full">
+  <div class="overflow-hidden h-1 bg-bg-tertiary rounded-full">
+    <div class="h-full bg-accent animate-progress-indeterminate" style="width: 30%"></div>
+  </div>
+  <p class="text-xs text-text-tertiary mt-2">Fetching data...</p>
+</div>
+
+<!-- Skeleton loader (para tablas/cards) -->
+<div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+  <!-- Header skeleton -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="h-4 bg-bg-tertiary rounded w-24 animate-pulse"></div>
+    <div class="h-4 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+  </div>
+
+  <!-- Content skeleton -->
+  <div class="space-y-3">
+    <div class="h-3 bg-bg-tertiary rounded w-full animate-pulse"></div>
+    <div class="h-3 bg-bg-tertiary rounded w-5/6 animate-pulse"></div>
+    <div class="h-3 bg-bg-tertiary rounded w-4/6 animate-pulse"></div>
+  </div>
+</div>
+
+<!-- Skeleton para stats cards -->
+<div class="grid grid-cols-3 gap-4">
+  <div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+    <div class="h-3 bg-bg-tertiary rounded w-20 mb-3 animate-pulse"></div>
+    <div class="h-6 bg-bg-tertiary rounded w-24 mb-2 animate-pulse"></div>
+    <div class="h-3 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+  </div>
+  <div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+    <div class="h-3 bg-bg-tertiary rounded w-20 mb-3 animate-pulse"></div>
+    <div class="h-6 bg-bg-tertiary rounded w-24 mb-2 animate-pulse"></div>
+    <div class="h-3 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+  </div>
+  <div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+    <div class="h-3 bg-bg-tertiary rounded w-20 mb-3 animate-pulse"></div>
+    <div class="h-6 bg-bg-tertiary rounded w-24 mb-2 animate-pulse"></div>
+    <div class="h-3 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+  </div>
+</div>
+
+<!-- Skeleton para tabla -->
+<div class="border border-border-default rounded-md overflow-hidden bg-bg-secondary">
+  <!-- Header -->
+  <div class="bg-bg-tertiary border-b border-border-default p-3 flex gap-4">
+    <div class="h-3 bg-bg-elevated rounded w-20 animate-pulse"></div>
+    <div class="h-3 bg-bg-elevated rounded w-24 animate-pulse"></div>
+    <div class="h-3 bg-bg-elevated rounded w-16 animate-pulse"></div>
+  </div>
+  <!-- Rows -->
+  <div class="divide-y divide-border-subtle">
+    <div class="p-3 flex gap-4">
+      <div class="h-3 bg-bg-tertiary rounded w-20 animate-pulse"></div>
+      <div class="h-3 bg-bg-tertiary rounded w-24 animate-pulse"></div>
+      <div class="h-3 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+    </div>
+    <div class="p-3 flex gap-4">
+      <div class="h-3 bg-bg-tertiary rounded w-20 animate-pulse"></div>
+      <div class="h-3 bg-bg-tertiary rounded w-24 animate-pulse"></div>
+      <div class="h-3 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+    </div>
+    <div class="p-3 flex gap-4">
+      <div class="h-3 bg-bg-tertiary rounded w-20 animate-pulse"></div>
+      <div class="h-3 bg-bg-tertiary rounded w-24 animate-pulse"></div>
+      <div class="h-3 bg-bg-tertiary rounded w-16 animate-pulse"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS para animaciones custom -->
+<style>
+  @keyframes progress-indeterminate {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+  }
+  .animate-progress-indeterminate {
+    animation: progress-indeterminate 1.5s ease-in-out infinite;
+  }
+</style>

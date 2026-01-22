@@ -1,0 +1,122 @@
+<!--
+  Componente: StatsCard
+  Propósito: Tarjeta para mostrar métricas clave con cambio porcentual
+
+  Props esperadas:
+  - title: String - Título de la métrica (ej: "Total Portfolio")
+  - value: String - Valor principal (ej: "$45,231.89")
+  - change: String - Cambio (ej: "+12.5%")
+  - change_type: ChangeType - Bullish/Bearish/Neutral
+  - subtitle: Option<String> - Info adicional (ej: "vs last month")
+  - icon: Option<Html> - Icono opcional
+
+  Respeta visual language:
+  - Borders: 1px sutiles
+  - Radius: rounded-md (6px)
+  - Text: title xs, value xl/2xl, change sm
+  - Spacing: p-4 (16px)
+  - Background: bg-secondary default, elevated opcional
+-->
+
+<!-- Versión default -->
+<div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+  <!-- Header con título e ícono opcional -->
+  <div class="flex items-center justify-between mb-2">
+    <h3 class="text-xs font-medium text-text-tertiary uppercase tracking-wide">
+      Total Portfolio
+    </h3>
+    <!-- Ícono opcional -->
+    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+    </svg>
+  </div>
+
+  <!-- Valor principal -->
+  <div class="mb-2">
+    <p class="text-2xl font-semibold text-text-primary">
+      $45,231.89
+    </p>
+  </div>
+
+  <!-- Cambio con badge -->
+  <div class="flex items-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-bullish/10 text-bullish border border-bullish/30">
+      ↑ +12.5%
+    </span>
+    <span class="text-xs text-text-tertiary">
+      vs last month
+    </span>
+  </div>
+</div>
+
+<!-- Versión elevated (para destacar) -->
+<div class="border border-border-emphasis rounded-md p-4 bg-bg-elevated shadow-md">
+  <div class="flex items-center justify-between mb-2">
+    <h3 class="text-xs font-medium text-text-tertiary uppercase tracking-wide">
+      Daily P&L
+    </h3>
+  </div>
+
+  <div class="mb-2">
+    <p class="text-2xl font-semibold text-text-primary">
+      +$1,234.56
+    </p>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-bullish/10 text-bullish border border-bullish/30">
+      ↑ +2.8%
+    </span>
+    <span class="text-xs text-text-tertiary">
+      today
+    </span>
+  </div>
+</div>
+
+<!-- Versión con cambio negativo -->
+<div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+  <div class="flex items-center justify-between mb-2">
+    <h3 class="text-xs font-medium text-text-tertiary uppercase tracking-wide">
+      Stock Position
+    </h3>
+  </div>
+
+  <div class="mb-2">
+    <p class="text-2xl font-semibold text-text-primary">
+      $8,942.10
+    </p>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-bearish/10 text-bearish border border-bearish/30">
+      ↓ -5.2%
+    </span>
+    <span class="text-xs text-text-tertiary">
+      this week
+    </span>
+  </div>
+</div>
+
+<!-- Versión neutral -->
+<div class="border border-border-default rounded-md p-4 bg-bg-secondary">
+  <div class="flex items-center justify-between mb-2">
+    <h3 class="text-xs font-medium text-text-tertiary uppercase tracking-wide">
+      Cash Balance
+    </h3>
+  </div>
+
+  <div class="mb-2">
+    <p class="text-2xl font-semibold text-text-primary">
+      $12,500.00
+    </p>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral/10 text-neutral border border-neutral/30">
+      → 0.0%
+    </span>
+    <span class="text-xs text-text-tertiary">
+      no change
+    </span>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<!--
+  Componente: Tabs
+  Propósito: Navegación entre secciones (ej: timeframes 1H/4H/1D/1W)
+
+  Props esperadas:
+  - tabs: Vec<Tab> - Lista de tabs con { id, label }
+  - active: String - ID del tab activo
+  - onchange: Callback - Handler cuando cambia tab
+
+  Respeta visual language:
+  - Borders: 1px sutiles en container
+  - Radius: rounded-md
+  - Text: sm (14px)
+  - Spacing: px-4 py-2 en tabs
+  - Active state: bg-bg-tertiary, border-accent
+  - Inactive: text-text-tertiary, hover bg-bg-tertiary/50
+-->
+
+<!-- Versión horizontal (default) -->
+<div class="border border-border-default rounded-md bg-bg-secondary p-1 inline-flex gap-1">
+  <!-- Tab activo -->
+  <button class="px-4 py-2 rounded text-sm font-medium bg-bg-tertiary text-text-primary border-b-2 border-accent transition-colors">
+    1H
+  </button>
+
+  <!-- Tab inactivo -->
+  <button class="px-4 py-2 rounded text-sm font-medium text-text-tertiary hover:bg-bg-tertiary/50 hover:text-text-primary transition-colors">
+    4H
+  </button>
+
+  <button class="px-4 py-2 rounded text-sm font-medium text-text-tertiary hover:bg-bg-tertiary/50 hover:text-text-primary transition-colors">
+    1D
+  </button>
+
+  <button class="px-4 py-2 rounded text-sm font-medium text-text-tertiary hover:bg-bg-tertiary/50 hover:text-text-primary transition-colors">
+    1W
+  </button>
+
+  <button class="px-4 py-2 rounded text-sm font-medium text-text-tertiary hover:bg-bg-tertiary/50 hover:text-text-primary transition-colors">
+    1M
+  </button>
+</div>
+
+<!-- Versión con iconos -->
+<div class="border border-border-default rounded-md bg-bg-secondary p-1 inline-flex gap-1">
+  <!-- Tab con ícono activo -->
+  <button class="px-4 py-2 rounded text-sm font-medium bg-bg-tertiary text-text-primary border-b-2 border-accent transition-colors flex items-center gap-2">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+    </svg>
+    Overview
+  </button>
+
+  <button class="px-4 py-2 rounded text-sm font-medium text-text-tertiary hover:bg-bg-tertiary/50 hover:text-text-primary transition-colors flex items-center gap-2">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    Positions
+  </button>
+
+  <button class="px-4 py-2 rounded text-sm font-medium text-text-tertiary hover:bg-bg-tertiary/50 hover:text-text-primary transition-colors flex items-center gap-2">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+    </svg>
+    Analytics
+  </button>
+</div>
+
+<!-- Versión full-width (para usar en layouts) -->
+<div class="border-b border-border-default">
+  <div class="flex gap-1 px-4">
+    <!-- Tab activo -->
+    <button class="px-4 py-3 text-sm font-medium text-text-primary border-b-2 border-accent transition-colors">
+      Technical
+    </button>
+
+    <!-- Tab inactivo -->
+    <button class="px-4 py-3 text-sm font-medium text-text-tertiary hover:text-text-primary border-b-2 border-transparent hover:border-border-emphasis transition-colors">
+      Fundamental
+    </button>
+
+    <button class="px-4 py-3 text-sm font-medium text-text-tertiary hover:text-text-primary border-b-2 border-transparent hover:border-border-emphasis transition-colors">
+      News
+    </button>
+
+    <button class="px-4 py-3 text-sm font-medium text-text-tertiary hover:text-text-primary border-b-2 border-transparent hover:border-border-emphasis transition-colors">
+      Alerts
+    </button>
+  </div>
+</div>
